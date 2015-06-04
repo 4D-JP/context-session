@@ -26,7 +26,7 @@ __セッションID__
 
 自動セッション管理では，ブラウザから送信されるHTTPクッキーとIPアドレスの組み合わせでセッションを識別します。クッキーの名称はデフォルトで``4DSID``ですが，[WEB SET OPTION](http://doc.4d.com/4Dv13/4D/13.5/WEB-SET-OPTION.301-1457388.ja.html)で変更することもできます。すでに開かれたセッションであるとWebサーバーが判断すれば，停止中のプロセスが再開され，前回の処置で作成したセレクションやプロセス変数をそのまま使い続けることができます。新しいセッションであるとWebサーバーが判断すれば，新規プロセスが作成されます。
 
-デベロッパーは，``On Web Connection``，あるいは``4DACTION``など，``On Web Connection``を実行しないアクセスであれば，そのメソッドの冒頭で，[WEB Get Current Session ID](http://doc.4d.com/4Dv13/4D/13.5/WEB-Get-Current-Session-ID.301-1457386.ja.html)をコールし，その値をプロセス変数に代入します。以降，メソッド開始時にプロセス変数を参照し，すでに値が代入されていれば，それは継続中のコンテキストであると判断することができます。
+デベロッパーは，``On Web Connection``，あるいは``4DACTION``メソッドコールなど，``On Web Connection``を実行しないようなアクセスであれば，コールされたメソッドの冒頭で，[WEB Get Current Session ID](http://doc.4d.com/4Dv13/4D/13.5/WEB-Get-Current-Session-ID.301-1457386.ja.html)をコールし，__セッションIDをプロセス変数に代入__します。以降，メソッド開始時にプロセス変数を参照し，すでに値が代入されていれば，それは継続中のコンテキストであると判断することができます。
 
 ```
 If (Length(Web_currentSessionId)=0)
