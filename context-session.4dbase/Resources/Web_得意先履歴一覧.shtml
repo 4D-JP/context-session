@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Pragma" content="no-nache" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <title>得意先売上履歴一覧</title>
+        <link rel="stylesheet" href="/styles/application.css" />
+    </head>
+    <body>
+        <div class="c1">
+            <p>&nbsp;</p>
+            <span class="c2">売上履歴</span>
+            <span class="c3">（<!--#4dtext [得意先M]得意先CODE-->）&nbsp;<!--#4dtext [得意先M]得意先名--></span>
+        </div>
+        
+        <div>
+            <table class="t1">
+                <tr class="t2">
+                    <th width="50">日付</th>
+                    <th width="50">納品書NO</th>
+                    <th width="170">品名</th>
+                    <th width="30">数量</th>
+                    <th width="30">単位</th>
+                    <th width="40">単価</th>
+                    <th width="55">売上金額</th>
+                    <th width="55">入金金額</th>
+                    <th width="60">摘要</th>
+                </tr>
+                
+                <!--#4dloop Web_得意先CODE-->                
+                <!--#4dif (Web_得意先CODE%2=0)-->
+                <tr class="t3">
+                <!--#4delse-->
+                <tr class="t4">
+                <!--#4dendif-->                
+                    <th width="50"><!--4dtext String(Web_日付{Web_得意先CODE};4)--></th>
+                    <th width="50"><!--4dtext Web_納品書NO{Web_得意先CODE}--></th>
+                    <th class="t5" width="170"><!--4dtext Web_品名{Web_得意先CODE}--></th>
+                    <th class="t6" width="30"><!--4dtext String(Web_数量{Web_得意先CODE};"###,###,##0")--></th>
+                    <th width="30"><!--4dtext Web_単位{Web_得意先CODE}--></th>
+                    <th class="t6" width="40"><!--4dtext String(Web_単価{Web_得意先CODE};"###,###,##0")--></th>
+                    <th class="t6" width="55"><!--4dtext String(Web_金額{Web_得意先CODE};"###,###,##0")--></th>
+                    <th class="t6" width="55">&yen;<!--4dtext String(Web_入金金額{Web_得意先CODE};"###,###,##0")--></th>
+                    <th width="60"><!--4dtext Web_摘要{Web_得意先CODE}--></th>
+                </tr>                
+                <!--#4dendloop-->
+            </table>
+        </div>
+        
+        <hr />
+        
+        <!--#4dif Records in selection([売上累積])#0-->
+        <div class="footer">
+            <span class="c5">検索結果:&nbsp;<!--#4dtext Web_recordsInSelection-->件&nbsp;<!--#4dtext Web_totalPages-->ページ中の<!--#4dtext Web_currentPage-->ページ目です。</span>
+            <p>&nbsp;</p>    
+            <form class="c4" method="post" action="/4daction/Web_得意先履歴一覧/<!--4dtext Web_currentRecord-->/<!--4dtext (Web_currentPage-1)-->">            
+                <input class="c6" type="submit" value="前頁" name="v前頁" <!--#4dif (Web_currentPage=1)-->disabled<!--#4dendif--> />
+            </form>            
+            <form class="c4" method="post" action="/4daction/Web_得意先履歴一覧/<!--4dtext Web_currentRecord-->/<!--4dtext (Web_currentPage+1)-->">              
+                <input class="c6" type="submit" value="次頁" name="v次頁" <!--#4dif (Web_currentPage=Web_totalPages)-->disabled<!--#4dendif-->/>
+            </form> 
+        </div> 
+        <div class="c5">      
+            <!--#4dloop Web_pages--> 
+            <a href="/4daction/Web_得意先履歴一覧/<!--4dtext Web_currentRecord-->/<!--4dtext Web_pages{Web_pages}-->">[<!--#4dtext Web_pages{Web_pages}-->]&nbsp;</a> 
+            <!--#4dendloop-->
+        </div>
+        <!--#4delse-->
+        <div class="footer">
+            <span class="c5">該当するデータがありません。 </span>
+        </div>        
+        <!--#4dendif-->
+
+        <hr />
+        <div>
+        <form class="c4" method="post" action="/4daction/Web_得意先履歴一覧/">
+            <p>&nbsp;</p>
+            <input type="text" class="c7" name="v得意先名検索" placeholder="得意先名または得意先コード" value="<!--#4dtext v得意先名検索-->" />
+            <hr />
+            <input class="c6" type="submit" value="検索" />
+            <input class="c6" type="reset" value="リセット" />
+        </form>
+    </div>
+    </body>
+</html>
