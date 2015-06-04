@@ -11,3 +11,13 @@ __概要__
 __セットアップ__
 
 自動セッション管理は[データベース設定](http://doc.4d.com/4Dv13/4D/13.5/Web-Sessions-Management.300-1457382.ja.html)または[WEB SET OPTION](http://doc.4d.com/4Dv13/4D/13.5/WEB-SET-OPTION.301-1457388.ja.html)で有効にすることができます。
+
+```
+WEB SET OPTION(Web keep session;1)
+```
+
+__スコープ__
+
+デフォルトの設定では，ランゲージで処理されるURLはすべてWebセッション管理が有効にされています。ランゲージで処理されるURLとは，つまりスタティックWebサーバー（Webフォルダー内に存在するファイルを自動的に配信すること）以外のURLであり，具体的には，[On Web Connection](http://doc.4d.com/4Dv13/4D/13.5/On-Web-Connection-Database-Method.300-1457408.ja.html)イベントが発生するようなURLのことです。
+
+__注記__：2003以前は，そのようなURLには``4DCGI``という文字列を付けることが要求されていました。2004以降，``4DCGI``は省略できるようになりました。Webフォルダー内にファイルが存在しなければ，必然的に``On Web Connection``イベントが発生します。なお，ドキュメントでは，便宜上，Webフォルダー内に対応するファイルが存在しないことを『無効なリクエスト』と呼んでいます。
