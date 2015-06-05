@@ -86,7 +86,7 @@ SELECTION RANGE TO ARRAY($start;$end;\
  [売上累積]摘要;Web_摘要)
 ```
 
-4DLOOPタグを活用したHTMLテンプレートを用意しておけば，[WEB SEND FILE](http://doc.4d.com/4Dv13/4D/13.5/WEB-SEND-FILE.301-1457395.ja.html)または[SEND HTML BLOB](http://doc.4d.com/4Dv12/4D/12.4/SEND-HTML-BLOB.301-977184.ja.html)自動的に配列の値がHTMLに挿入されます。
+4DLOOPタグを活用したHTMLテンプレートを用意しておけば，[WEB SEND FILE](http://doc.4d.com/4Dv13/4D/13.5/WEB-SEND-FILE.301-1457395.ja.html)または[SEND HTML BLOB](http://doc.4d.com/4Dv12/4D/12.4/SEND-HTML-BLOB.301-977184.ja.html)で自動的に配列の値がHTMLに挿入されます。
 
 __注記__: ファイルを使用するのでれば，拡張子は``html, htm, shtml, shtm```のいずれかでなければなりません。BLOBを使用するのであれば，MIME指定が@@text/html``でなければなりません。
 
