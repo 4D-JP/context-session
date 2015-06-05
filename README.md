@@ -143,6 +143,6 @@ ___廃止されたもの___
 ___代わりに使用されるもの___
 
 * 自動セッション管理
-* WEB GET VARIABLES
+* ``WEB GET VARIABLES``
 * ``/4DACTION/``から始まるURL
 * ``On Web Connection``
