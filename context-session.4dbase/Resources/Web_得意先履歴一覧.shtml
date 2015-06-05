@@ -54,18 +54,13 @@
         <div class="footer">
             <span class="c5">検索結果:&nbsp;<!--#4dtext Web_recordsInSelection-->件&nbsp;<!--#4dtext Web_totalPages-->ページ中の<!--#4dtext Web_currentPage-->ページ目です。</span>
             <p>&nbsp;</p>    
-            <form class="c4" method="post" action="/4daction/Web_得意先履歴一覧/<!--4dtext Web_currentRecord-->/<!--4dtext (Web_currentPage-1)-->">            
+            <form class="c4" method="post" action="/4daction/Web_得意先履歴一覧/">            
                 <input class="c6" type="submit" value="前頁" name="v前頁" <!--#4dif (Web_currentPage=1)-->disabled<!--#4dendif--> />
             </form>            
-            <form class="c4" method="post" action="/4daction/Web_得意先履歴一覧/<!--4dtext Web_currentRecord-->/<!--4dtext (Web_currentPage+1)-->">              
+            <form class="c4" method="post" action="/4daction/Web_得意先履歴一覧/">              
                 <input class="c6" type="submit" value="次頁" name="v次頁" <!--#4dif (Web_currentPage=Web_totalPages)-->disabled<!--#4dendif-->/>
             </form> 
         </div> 
-        <div class="c5">      
-            <!--#4dloop Web_pages--> 
-            <a href="/4daction/Web_得意先履歴一覧/<!--4dtext Web_currentRecord-->/<!--4dtext Web_pages{Web_pages}-->">[<!--#4dtext Web_pages{Web_pages}-->]&nbsp;</a> 
-            <!--#4dendloop-->
-        </div>
         <!--#4delse-->
         <div class="footer">
             <span class="c5">該当するデータがありません。 </span>
