@@ -62,4 +62,66 @@ End for
 
 はじめてこのページからフォームを送信したときには，``Compiler_WEB``が実行され，``v得意先名検索``のようなプロセス変数を4D側で宣言する機会が与えられます。前述したように，__Web変数の自動代入は実行されない__ので，``4DACTION``でコールされたメソッドの中で``WEB GET VARIABLES``を使用し，受け取った値を明示的に代入しなければなりません。しかし，そうしておけば，次回のアクセスからは，[Compiler_WEBが実行されません](http://doc.4d.com/4Dv13/4D/13.5/Web-Sessions-Management.300-1457382.ja.html)し，プロセス変数には，前回のアクセスで代入された値が残っていることになります。
 
+動的なHTMLを出力
 
+HTMLはテキストなので，テキスト変数の連結でデータベースの値を挿入することもできるかもしれませんが，それではコードが複雑になってしまい，管理が非常に面倒です。動的なHTMLを出力するのであれば，是非，[4D TAGS](http://doc.4d.com/4Dv13/4D/13.5/4D-HTML-Tags.300-1457419.ja.html)を使用してください。
+
+たとえば，クエリで作成したセレクションの一部をHTMLページに出力したかったとしましょう。メソッド内でループを実行し，``NEXT RECORD``などを使用する代わりに，``SELECTION RANGE TO ARRAY``で特定の範囲を配列に取り出すことができます。
+
+```
+$start:=1+((Web_currentPage-1)*$lines)
+$end:=$start+$lines
+$end:=Choose($end<Web_recordsInSelection;$end;Web_recordsInSelection)
+
+SELECTION RANGE TO ARRAY($start;$end;\
+ [売上累積]得意先CODE;Web_得意先CODE;\
+ [売上累積]日付;Web_日付;\
+ [売上累積]納品書NO;Web_納品書NO;\
+ [売上累積]品名;Web_品名;\
+ [売上累積]数量;Web_数量;\
+ [売上累積]単位;Web_単位;\
+ [売上累積]単価;Web_単価;\
+ [売上累積]金額;Web_金額;\
+ [売上累積]入金金額;Web_入金金額;\
+ [売上累積]摘要;Web_摘要)
+```
+
+4DLOOPタグを活用したHTMLテンプレートを用意しておけば，[WEB SEND FILE](http://doc.4d.com/4Dv13/4D/13.5/WEB-SEND-FILE.301-1457395.ja.html)または[SEND HTML BLOB](http://doc.4d.com/4Dv12/4D/12.4/SEND-HTML-BLOB.301-977184.ja.html)自動的に配列の値がHTMLに挿入されます。
+
+__注記__: ファイルを使用するのでれば，拡張子は``html, htm, shtml, shtm```のいずれかでなければなりません。BLOBを使用するのであれば，MIME指定が@@text/html``でなければなりません。
+
+```
+        <div>
+            <table class="t1">
+                <tr class="t2">
+                    <th width="50">日付</th>
+                    <th width="50">納品書NO</th>
+                    <th width="170">品名</th>
+                    <th width="30">数量</th>
+                    <th width="30">単位</th>
+                    <th width="40">単価</th>
+                    <th width="55">売上金額</th>
+                    <th width="55">入金金額</th>
+                    <th width="60">摘要</th>
+                </tr>
+                
+                <!--#4dloop Web_得意先CODE-->                
+                <!--#4dif (Web_得意先CODE%2=0)-->
+                <tr class="t3">
+                <!--#4delse-->
+                <tr class="t4">
+                <!--#4dendif-->                
+                    <th width="50"><!--4dtext String(Web_日付{Web_得意先CODE};4)--></th>
+                    <th width="50"><!--4dtext Web_納品書NO{Web_得意先CODE}--></th>
+                    <th class="t5" width="170"><!--4dtext Web_品名{Web_得意先CODE}--></th>
+                    <th class="t6" width="30"><!--4dtext String(Web_数量{Web_得意先CODE};"###,###,##0")--></th>
+                    <th width="30"><!--4dtext Web_単位{Web_得意先CODE}--></th>
+                    <th class="t6" width="40"><!--4dtext String(Web_単価{Web_得意先CODE};"###,###,##0")--></th>
+                    <th class="t6" width="55"><!--4dtext String(Web_金額{Web_得意先CODE};"###,###,##0")--></th>
+                    <th class="t6" width="55">&yen;<!--4dtext String(Web_入金金額{Web_得意先CODE};"###,###,##0")--></th>
+                    <th width="60"><!--4dtext Web_摘要{Web_得意先CODE}--></th>
+                </tr>                
+                <!--#4dendloop-->
+            </table>
+        </div>
+```
