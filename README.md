@@ -90,7 +90,7 @@ SELECTION RANGE TO ARRAY($start;$end;\
 
 __注記__: ファイルを使用するのでれば，拡張子は``html, htm, shtml, shtm```のいずれかでなければなりません。BLOBを使用するのであれば，MIME指定が@@text/html``でなければなりません。
 
-```
+```html
         <div>
             <table class="t1">
                 <tr class="t2">
