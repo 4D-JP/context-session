@@ -33,3 +33,6 @@ If (Length(Web_currentSessionId)=0)
   Web_currentSessionId:=WEB Get Current Session ID
 End if 
 ```
+
+__Web変数__
+v12以前には，プロセス変数を``Compiler_Web``でプロセス変数を宣言しておけば，[HTTP POSTまたはGETで送信されたWebフォーム変数を4Dのプロセス変数に自動代入する](http://doc.4d.com/4Dv13/4D/13.5/Binding-4D-objects-with-HTML-objects.300-1457417.ja.html)，というメカニズムが存在しました。しかし，Webフォーム変数は[WEB GET VARIABLES](http://doc.4d.com/4Dv13/4D/13.5/WEB-GET-VARIABLES.301-1457406.ja.html)，マルチパートでポストされたファイルデータなどは[WEB GET BODY PART](http://doc.4d.com/4Dv13/4D/13.5/WEB-GET-BODY-PART.301-1457383.ja.html)でより効率的に受け取ることができ，そうすれば，Web変数名と同名のプロセス変数を用意する必要もないので，[『Webから送信された変数をプロセス配列に自動代入する』は，v13で廃止されました](http://doc.4d.com/4Dv13/4D/13.4/Compatibility-page.300-1226529.ja.html)。
